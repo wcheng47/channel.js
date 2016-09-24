@@ -45,8 +45,6 @@
           $('#time').text(player.getCurrentTime());
       }
 
-      setInterval(updateCurrentTime, 100);
-
 // WEB SOCKETS //
 
 $(document).ready(function () {
@@ -123,7 +121,6 @@ $(document).ready(function () {
     channel.on('state-change', handle_state_change);
 
 
-
     var binder = new Channel('/binding/');
     var bindingAgent = binder.bind('room');
     bindingAgent.create(function (data) {
@@ -143,7 +140,16 @@ $(document).ready(function () {
     });
 
 
+      setInterval(updateCurrentTime, 100);
 
+
+    $('#play').on('click', function (event) {
+       player.playVideo();
+    });
+
+    $('#pause').on('click',function(event) {
+        player.pauseVideo();
+    });
 
 
 
