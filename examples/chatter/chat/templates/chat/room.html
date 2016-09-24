@@ -17,18 +17,25 @@
                 </ul>
             </div>
 
-            <div class="col-md-4">
-                <h4>Messages</h4>
-                <ul class="list-group" id="chat-messages">
-                </ul>
+            <div class="col-md-12">
+                <h4>Player</h4>
+                <div id="player"></div>
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-secondary"> <i id = "play" class="fa fa-play" aria-hidden="true"> </i> </button>
+                    <button type="button" class="btn btn-secondary"> <i id = "pause" class="fa fa-pause" aria-hidden="true"> </i> </button>
+                    <button type="button" class="btn btn-secondary"> <div id = "time"></div></button>
+                </div>
+
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <h4>Send message</h4>
 
                 <form>
                     <input type="hidden" value="{{ room.slug }}" id="room-slug">
                     <div class="form-group">
+
                         <label for="chat-username">Username</label>
                         <input type="text" class="form-control" id="chat-username"/>
                     </div>
@@ -38,6 +45,12 @@
                     </div>
                     <button id="chat-submit" type="submit" class="btn btn-outline-primary btn-block">Submit</button>
                 </form>
+
+                <h4>Messages</h4>
+                <ul class="list-group" id="chat-messages">
+                </ul>
+
+
                 <h4>Members
                     <small>(<span id="chat-member-count">{{ room.member_count }}</span>)</small>
                 </h4>

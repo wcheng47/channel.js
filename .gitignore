@@ -93,3 +93,4 @@ ENV/
 .idea/
 db.sqlite3
 /examples/chatter/venv_py27/
+.DS_Store
