@@ -42,9 +42,7 @@
       }
 
       function updateCurrentTime() {
-          var timeElement = $('#time');
-          var playerTime = player.getCurrentTime();
-          timeElement.text(playerTime);
+          $('#time').text(player.getCurrentTime());
       }
 
       setInterval(updateCurrentTime, 100);
@@ -142,5 +140,48 @@ $(document).ready(function () {
     });
     bindingAgent.destroy(function (data) {
         $("[data-room_id=" + data.pk + "]").remove();
+    });
+
+
+
+
+
+
+
+
+    // MESSAGES //
+    // Handle receiving new messages from other users
+    channel.on('message-new', function (data) {
+        $('#chat-messages').prepend(
+            '<li class="list-group-item"><strong>'
+            + data['username']
+            + '</strong>&nbsp;'
+            + data['msg'] +
+            '<span class="tag tag-pill tag-success float-right italics">'
+            + data['time']
+            + '</span></li>');
+    });
+
+    // Handle the user submitting new messages
+    var submit_button = $('#chat-submit');
+    submit_button.on('click', function () {
+        // Get the username and message
+        var username = $('#chat-username');
+        var message = $('#chat-form');
+
+        var data = {
+            'msg': message.val(),
+            'username': username.val()
+        };
+
+        // Don't let the user change his/her username
+        username.attr('disabled', true);
+        // Clear the message
+        message.val('');
+
+        // Send the message across the channel
+        channel.emit('message-send', data);
+
+        return false;
     });
 });
