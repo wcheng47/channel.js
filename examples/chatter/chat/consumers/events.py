@@ -22,6 +22,10 @@ def user_join(message, **kwargs):  # type: (Message, dict)
         data={
             'members': room.members(),
             'username': username,
+            'youtube_id': room.youtube_id,
+            'state': room.state,
+            'action_time': str(room.action_time),
+            'timestamp': room.timestamp
         }
     )
 
@@ -40,6 +44,29 @@ def user_leave(message, **kwargs):  # type: (Message, dict)
             'members': room.members(),
             'username': left_member.username
         })
+def state_change(message, **kwargs):
+    """
+    Handles when a user changes the state
+    """
+    room = Room.objects.get(slug=message.content.pop('slug'))
+    username = message.content.pop('username')
+    timestamp = message.content.pop('timestamp')
+    state = message.content.pop('state')
+
+    room.state = state
+    room.timestamp = timestamp
+    room.action_time = datetime.now()
+    room.save()
+
+    room.emit(
+        event='state-change',
+        data={
+            'state': room.state,
+            'username': username,
+            'action_time': room.action_time,
+            'timestamp': room.timestamp
+        }
+    )
 
 
 def client_send(message, **kwargs):  # type: (Message, dict)
