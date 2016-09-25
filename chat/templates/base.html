@@ -11,14 +11,94 @@
 
     <title>{% block title %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'css/bootstrap-4.0.0-alpha.3.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css">
+    <style>
+        html {
+            height:100%;
+        }
+
+        .container-fluid {
+            height: 100%;
+        }
+
+        body {
+            font-family: proxima-nova, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            background-image: url("http://williamhcheng.com/resources/background3.png");
+            background-size: cover;
+            color: black;
+            height:100%;
+        }
+
+        .float-right {
+            float: right;
+        }
+
+        .row {
+            height: 100%;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        .list-group-item {
+        }
+
+        header {
+            padding-top: 1em;
+            height:5em;
+            width:auto;
+            padding-bottom: 1em;
+        }
+
+        #logo {
+            content: url("http://williamhcheng.com/resources/koalaudioBP.png");
+            height: 100%;
+            width: auto;
+            margin: auto;
+        }
+
+        #mascot {}
+
+        #player {
+            padding-top: 1em;
+            padding-left: 1em;
+            float: left;
+            width: 100%;
+        }
+
+        .italics {
+            font-style: italic;
+        }
+
+        #chat-messages {
+            overflow-y: scroll;
+            overflow:hidden;
+            height: 60%;
+        }
+
+        #chat-form {
+            width: 70%;
+            float: left;
+        }
+
+        #chat-submit {
+            width: 20%;
+            float: right;
+        }
+
+        .col-md-4 {
+            height:100%;
+        }
+    </style>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
-    <script type="text/javascript" src="{% static 'js/jquery-3.1.0.js' %}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/core.js"></script>
 
-    <script type="text/javascript" src="{% static 'js/reconnecting-websocket.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/channel-0.2.0.js' %}"></script>
+    <script type="text/javascript" src="
+https://raw.githubusercontent.com/k-pramod/channel.js/master/dist/reconnecting-websocket.js"></script>
+<script type="text/javascript" src="
+https://raw.githubusercontent.com/k-pramod/channel.js/master/dist/channel-0.2.0.js"></script>
 </head>
 <body>
 
