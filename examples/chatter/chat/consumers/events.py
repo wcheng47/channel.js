@@ -63,8 +63,9 @@ def state_change(message, **kwargs):
         data={
             'state': room.state,
             'username': username,
-            'action_time': room.action_time,
-            'timestamp': room.timestamp
+            'action_time': str(room.action_time),
+            'timestamp': room.timestamp,
+            'youtube_id': room.youtube_id
         }
     )
 

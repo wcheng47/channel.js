@@ -47,12 +47,14 @@
 
 // WEB SOCKETS //
 
+var channel;
+
 $(document).ready(function () {
     var room_slug = $('#room-slug').val();
     // Get the web socket path from the room slug
     var ws_path = '/chat/' + room_slug + '/stream/';
     // Create a new Channel instance (which handles connecting to server)
-    var channel = new Channel(ws_path);
+    channel = new Channel(ws_path);
 
     channel.on('connect', function (channel) {
         /* var username = null;
@@ -144,14 +146,38 @@ $(document).ready(function () {
 
 
     $('#play').on('click', function (event) {
-       player.playVideo();
-    });
+        channel.emit('state-change', {
+            'slug' : room_slug,
+            'username' : $('#chat-username').val(),
+            'timestamp' : player.getCurrentTime(),
+            'state_change' : 'play'
+    });});
 
     $('#pause').on('click',function(event) {
-        player.pauseVideo();
+        channel.emit('state-change', {
+            'slug' : room_slug,
+            'username' : $('#chat-username').val(),
+            'timestamp' : player.getCurrentTime(),
+            'state_change' : 'pause'
+    });       });
+
+
+
+    channel.on('state-change', function (data) {
+        // your code here
+        var current_id = player.getVideoData()['video_id'];
+        if (current_id != data['youtube_id']) {
+            player.loadVideoById({videoId: data['youtube_id'],
+                      startSeconds: data['timestamp']});
+        }
+        $('#time').text(data['action_time']);
+
+        if(data['state_change'] == 'pause'){
+            player.pauseVideo();
+        } else {
+            player.playVideo();
+        }
     });
-
-
 
 
 

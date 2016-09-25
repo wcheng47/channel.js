@@ -8,7 +8,7 @@ chat_routing = [
 event_routing = [
     route('chat.receive', events.user_join, event=r'^user-join$'),
     route('chat.receive', events.user_leave, event=r'^user-leave$'),
-    route('chate.receive', events.state_change, event=r'^state-change$'),
+    route('chat.receive', events.state_change, event=r'^state-change$'),
     route('chat.receive', events.client_send, event=r'^message-send$')
 ]
 
