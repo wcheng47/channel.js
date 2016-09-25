@@ -19,3 +19,17 @@ body {
     font-style: italic;
 }
 
+#chat-messages {
+    overflow-y: scroll;
+    height: 28em;
+}
+
+#chat-form {
+    width: 75%;
+    float: left;
+}
+
+#chat-submit {
+    width: 20%;
+    float: right;
+}

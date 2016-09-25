@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <h3>
@@ -30,11 +30,11 @@
                     <input type="hidden" value="{{ room.slug }}" id="room-slug">
                     <div class="form-group">
 
-                        <label for="chat-username">Username</label>
+                        <label class = "username" for="chat-username">Username</label>
                         <input type="text" class="form-control" id="chat-username"/>
                     </div>
                     <div class="form-group">
-                        <label for="chat-form">Message</label>
+                        <p>Message</p>
                         <input class="form-control" id="chat-form"/>
                     </div>
                     <button id="chat-submit" type="submit" class="btn btn-outline-primary btn-block">Submit</button>

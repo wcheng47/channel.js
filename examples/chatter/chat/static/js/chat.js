@@ -158,10 +158,6 @@ $(document).ready(function () {
         }
     });
 
-
-
-
-
     // MESSAGES //
     // Handle receiving new messages from other users
     channel.on('message-new', function (data) {
