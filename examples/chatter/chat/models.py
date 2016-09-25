@@ -19,6 +19,29 @@ class Room(models.Model):
     # the  timestamp when the state changes
     timestamp = models.FloatField(null = True)
 
+    SEPARATOR = ','
+
+    video_queue = models.TextField(default='')
+
+    @property
+    def videos(self):
+        return self.video_queue.split(Room.SEPARATOR)
+    
+    def pop_video(self):
+        return_id = self.poll_video()
+
+        self.video_queue = Room.SEPARATOR.join(self.videos[1:])
+        self.save()
+
+        return return_id
+    
+    def poll_video(self):
+        return self.videos[0]
+
+    def push_video(self, new_video_id):
+        self.video_queue += Room.SEPARATOR + new_video_id
+        self.save()
+
     def emit(self, event, data):  # type: (str, dict)
         data['event'] = event
         self.group.send({

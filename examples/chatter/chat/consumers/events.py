@@ -71,6 +71,42 @@ def state_change(message, **kwargs):
     )
 
 
+def video_end(message, **kwargs):
+    room = Room.objects.get(slug=message.content.pop('slug'))
+    ended_video_id = message.content.pop('youtube_id')
+
+    if room.youtube_id == ended_video_id:
+        new_video_id = room.pop_video()
+        room.youtube_id = new_video_id
+        room.timestamp = 0
+        room.action_time = datetime.now()
+        room.state = 'play'
+        room.save()
+
+    room.emit(
+        event='queue-next',
+        data={
+            'new_video_id': room.youtube_id,
+            'timestamp': room.timestamp,
+            'action_time': room.action_time,
+            'state': room.state
+        }
+    )
+
+
+def force_update(message, **kwargs):
+    room = Room.objects.get(slug=message.content.pop('slug'))
+    room.emit(
+        event='force-update',
+        data={
+            'youtube_id': room.youtube_id,
+            'timestamp': room.timestamp,
+            'action_time': room.action_time,
+            'state': room.state
+        }
+    )
+
+
 def client_send(message, **kwargs):  # type: (Message, dict)
     """
     Handles when the client sends a message
