@@ -15,7 +15,7 @@
         player = new YT.Player('player', {
           height: '390',
           width: '640',
-          videoId: 'M7lc1UVf-VE',
+          videoId: 'ktskEn5q7gg',
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -47,14 +47,12 @@
 
 // WEB SOCKETS //
 
-var channel;
-
 $(document).ready(function () {
     var room_slug = $('#room-slug').val();
     // Get the web socket path from the room slug
     var ws_path = '/chat/' + room_slug + '/stream/';
     // Create a new Channel instance (which handles connecting to server)
-    channel = new Channel(ws_path);
+    var channel = new Channel(ws_path);
 
     channel.on('connect', function (channel) {
         /* var username = null;
@@ -146,38 +144,49 @@ $(document).ready(function () {
 
 
     $('#play').on('click', function (event) {
-        channel.emit('state-change', {
-            'slug' : room_slug,
-            'username' : $('#chat-username').val(),
-            'timestamp' : player.getCurrentTime(),
-            'state_change' : 'play'
-    });});
+       send_update('play');
+    });
 
     $('#pause').on('click',function(event) {
+        send_update('pause');
+    });
+
+
+    var send_update = function (new_state) {
         channel.emit('state-change', {
-            'slug' : room_slug,
-            'username' : $('#chat-username').val(),
-            'timestamp' : player.getCurrentTime(),
-            'state_change' : 'pause'
-    });       });
-
-
+            'slug': room_slug,
+            'username': $("#chat-username").val(),
+            'timestamp': player.getCurrentTime(),
+            'youtube_id': player.getVideoData()['video_id'],
+            'state': new_state
+        })
+    };
 
     channel.on('state-change', function (data) {
-        // your code here
-        var current_id = player.getVideoData()['video_id'];
-        if (current_id != data['youtube_id']) {
-            player.loadVideoById({videoId: data['youtube_id'],
-                      startSeconds: data['timestamp']});
-        }
-        $('#time').text(data['action_time']);
 
-        if(data['state_change'] == 'pause'){
-            player.pauseVideo();
-        } else {
+        console.log(data);
+
+        var current_id = player.getVideoData()['video_id'];
+        var curr_time = player.getCurrentTime();
+
+        if (current_id != data['youtube_id']) {
+            player.loadVideoById({videoId: data['youtube_id']})
+        } else if (curr_time != data['timestamp']) {
+            /*player.loadVideoById({videoId: data['youtube_id'], startSeconds: data['timestamp']})*/
+        }
+
+        // $('#time').text(data['action_time']);
+
+        console.log(data['state']);
+
+        if(data['state'] == 'play') {
             player.playVideo();
+        } else {
+            player.pauseVideo();
         }
     });
+
+
 
 
 

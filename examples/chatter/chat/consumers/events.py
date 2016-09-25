@@ -56,6 +56,7 @@ def state_change(message, **kwargs):
     room.state = state
     room.timestamp = timestamp
     room.action_time = datetime.now()
+    room.youtube_id = message.content.pop('youtube_id')
     room.save()
 
     room.emit(
