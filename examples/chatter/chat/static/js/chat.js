@@ -237,4 +237,23 @@ $(document).ready(function () {
 
         return false;
     });
+
+
+    channel.emit('video-end', {
+            'slug': room_slug,
+            'youtube_id': player.getVideoData()['video_id']
+        });
+
+    channel.on('queue-next', function(data) {
+        player.loadVideoById({videoId: data['youtube_id']});
+        player.playVideo();
+    });
+
+    channel.emit('force-update', {
+        'slug': room_slug
+    });
+    channel.on('force-update', function(data) {
+        player.loadVideoById({videoId: data['youtube_id'], startSeconds: data['timestamp']}),
+        player.playVideo();
+    });
 });
