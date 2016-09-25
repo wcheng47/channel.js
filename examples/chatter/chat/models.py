@@ -30,7 +30,7 @@ class Room(models.Model):
     def pop_video(self):
         return_id = self.poll_video()
 
-        self.video_queue = self.videos[1:]
+        self.video_queue = Room.SEPARATOR.join(self.videos[1:])
         self.save()
 
         return return_id
