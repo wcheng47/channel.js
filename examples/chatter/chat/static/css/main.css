@@ -6,6 +6,16 @@ body {
     float: right;
 }
 
+#player {
+    float: left;
+    width: 100%;
+}
+
+.btn-toolbar {
+    width: 100%;
+}
+
 .italics {
     font-style: italic;
 }
+

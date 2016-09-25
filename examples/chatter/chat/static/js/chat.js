@@ -120,26 +120,6 @@ $(document).ready(function () {
 
     channel.on('state-change', handle_state_change);
 
-
-    var binder = new Channel('/binding/');
-    var bindingAgent = binder.bind('room');
-    bindingAgent.create(function (data) {
-        var roomItem =
-            '<li data-room_id="'
-            + data.pk
-            + '" class="list-group-item">'
-            + data.slug
-            + '</li>';
-        $("#chat-rooms").append(roomItem);
-    });
-    bindingAgent.update(function (data) {
-        $("[data-room_id=" + data.pk + "]").html(data.slug);
-    });
-    bindingAgent.destroy(function (data) {
-        $("[data-room_id=" + data.pk + "]").remove();
-    });
-
-
       setInterval(updateCurrentTime, 100);
 
 
@@ -164,20 +144,12 @@ $(document).ready(function () {
 
     channel.on('state-change', function (data) {
 
-        console.log(data);
-
         var current_id = player.getVideoData()['video_id'];
         var curr_time = player.getCurrentTime();
 
         if (current_id != data['youtube_id']) {
             player.loadVideoById({videoId: data['youtube_id']})
-        } else if (curr_time != data['timestamp']) {
-            /*player.loadVideoById({videoId: data['youtube_id'], startSeconds: data['timestamp']})*/
         }
-
-        // $('#time').text(data['action_time']);
-
-        console.log(data['state']);
 
         if(data['state'] == 'play') {
             player.playVideo();
@@ -196,9 +168,10 @@ $(document).ready(function () {
         $('#chat-messages').prepend(
             '<li class="list-group-item"><strong>'
             + data['username']
+            + ":"
             + '</strong>&nbsp;'
-            + data['msg'] +
-            '<span class="tag tag-pill tag-success float-right italics">'
+            + data['msg']
+            + '<span class="tag tag-pill tag-success float-right italics">'
             + data['time']
             + '</span></li>');
     });
