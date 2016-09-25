@@ -253,7 +253,7 @@ $(document).ready(function () {
         'slug': room_slug
     });
     channel.on('force-update', function(data) {
-        player.loadVideoById({videoId: data['youtube_id'], startSeconds: data['timestamp']}),
+        player.loadVideoById({videoId: data['youtube_id'], startSeconds: data['timestamp']});
         player.playVideo();
     });
 });
