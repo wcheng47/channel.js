@@ -120,26 +120,6 @@ $(document).ready(function () {
 
     channel.on('state-change', handle_state_change);
 
-
-    var binder = new Channel('/binding/');
-    var bindingAgent = binder.bind('room');
-    bindingAgent.create(function (data) {
-        var roomItem =
-            '<li data-room_id="'
-            + data.pk
-            + '" class="list-group-item">'
-            + data.slug
-            + '</li>';
-        $("#chat-rooms").append(roomItem);
-    });
-    bindingAgent.update(function (data) {
-        $("[data-room_id=" + data.pk + "]").html(data.slug);
-    });
-    bindingAgent.destroy(function (data) {
-        $("[data-room_id=" + data.pk + "]").remove();
-    });
-
-
       setInterval(updateCurrentTime, 100);
 
 
