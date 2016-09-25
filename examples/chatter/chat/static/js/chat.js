@@ -164,18 +164,21 @@ $(document).ready(function () {
 
 
     channel.on('state-change', function (data) {
-        // your code here
         var current_id = player.getVideoData()['video_id'];
-        if (current_id != data['youtube_id']) {
-            player.loadVideoById({videoId: data['youtube_id'],
-                      startSeconds: data['timestamp']});
-        }
-        $('#time').text(data['action_time']);
+        var curr_time = player.getCurrentTime();
 
-        if(data['state_change'] == 'pause'){
-            player.pauseVideo();
-        } else {
+        if (current_id != data['youtube_id']) {
+            player.loadVideoById({videoId: data['youtube_id']})
+        } else if (curr_time != data['time_stamp']) {
+            player.loadVideoById({videoId: data['youtube)id'], startSeconds: data['time_stamp']})
+        }
+
+        // $('#time').text(data['action_time']);
+
+        if(data['state_change'] == 'play'){
             player.playVideo();
+        } else {
+            player.pauseVideo();
         }
     });
 
