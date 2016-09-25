@@ -237,4 +237,23 @@ $(document).ready(function () {
 
         return false;
     });
+
+
+    $("#submit-new-video").on('click', function () {
+        var new_video_id = $("#new-video-id").val();
+
+        $.ajax({
+            url: '/videos/' + room_slug + '/',
+            method: 'POST',
+            data: {
+                'new_video_id': new_video_id,
+                'slug': room_slug
+            },
+            success: function (data) {
+                var parsed_data = JSON.parse(data);
+                var video_ids = parsed_data['video_ids'];
+                $("#current-videos").html(video_ids);
+            }
+        });
+    });
 });

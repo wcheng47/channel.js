@@ -19,6 +19,19 @@
                     <button type="button" class="btn btn-secondary"> <div id = "time"></div></button>
                     </div>
                 </div>
+
+                <h4>Video queue</h4>
+
+                <form action="/videos/{{ room.slug }}/" method="POST">
+                    <label for="new-video-id">New video for group's video queue</label>
+                    <input type="text" id="new-video-id" class="form-control"/>
+                    <button type="button" id="submit-new-video" class="btn btn-outline-success">Add to queue</button>
+                </form>
+
+                <div class="col-md-12">
+                    <span id="current-videos"></span>
+                </div>
+
             </div>
 
             <div class="col-md-4">

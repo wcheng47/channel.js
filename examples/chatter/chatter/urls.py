@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from chat.views import add_to_video_queue
+
 urlpatterns = [
     url(r'^chat/', include('chat.urls')),
+    url(r'^videos/(?P<slug>[a-zA-Z0-9_]+)/', add_to_video_queue),
     url(r'^admin/', admin.site.urls)
 ]

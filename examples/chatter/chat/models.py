@@ -38,7 +38,7 @@ class Room(models.Model):
     def poll_video(self):
         return self.videos[0]
 
-    def push_video(self, new_video_id):
+    def push_video(self, new_video_id): # type: str
         self.video_queue += Room.SEPARATOR + new_video_id
         self.save()
 
