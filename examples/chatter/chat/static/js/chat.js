@@ -1,6 +1,9 @@
 // YOUTUBE ///
 
 
+var channel;
+var room_slug = $('#room-slug').val();
+// $(document).ready(function () {
 // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
@@ -19,6 +22,7 @@
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
+              // 'onStateChange': handle_player_state_change
           }
         });
       }
@@ -32,11 +36,17 @@
       //    The function indicates that when playing a video (state=1),
       //    the player should play for six seconds and then stop.
       var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          done = true;
+    function onPlayerStateChange(event) {
+        if (!done) {
+            var state = event.data;
+            if (state == 1) { send_update('play');}
+        else if (state == 2) { send_update('pause');}
         }
+        onPlayerStateChange = function (state) {
+
+    };
       }
+
       function stopVideo() {
         player.stopVideo();
       }
@@ -45,14 +55,47 @@
           $('#time').text(player.getCurrentTime());
       }
 
-// WEB SOCKETS //
+          var send_update = function (new_state) {
+        channel.emit('state-change', {
+            'slug': room_slug,
+            'username': $("#chat-username").val(),
+            'timestamp': player.getCurrentTime(),
+            'youtube_id': player.getVideoData()['video_id'],
+            'state': new_state
+        })
+    //              channel.on('state-change', function (data) {
+    //
+    //     console.log(data);
+    //
+    //     var current_id = player.getVideoData()['video_id'];
+    //     var curr_time = player.getCurrentTime();
+    //
+    //     if (current_id != data['youtube_id']) {
+    //         player.loadVideoById({videoId: data['youtube_id']})
+    //     } else if (curr_time != data['timestamp']) {
+    //         /*player.loadVideoById({videoId: data['youtube_id'], startSeconds: data['timestamp']})*/
+    //     }
+    //
+    //     console.log(data['state']);
+    //
+    //     if(data['state'] == 'play') {
+    //         player.playVideo();
+    //     } else {
+    //         player.pauseVideo();
+    //     }
+    // });
+    };
 
+
+
+// WEB SOCKETS //
 $(document).ready(function () {
+
     var room_slug = $('#room-slug').val();
     // Get the web socket path from the room slug
     var ws_path = '/chat/' + room_slug + '/stream/';
     // Create a new Channel instance (which handles connecting to server)
-    var channel = new Channel(ws_path);
+    channel = new Channel(ws_path);
 
     channel.on('connect', function (channel) {
         /* var username = null;
