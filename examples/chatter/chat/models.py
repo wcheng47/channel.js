@@ -10,6 +10,14 @@ class Room(models.Model):
     """
     # The name of the room found in the room URL
     slug = models.CharField(max_length=32, unique=True)
+    # URL code of the video
+    youtube_id = models.CharField(max_length=32, null = True)
+    # Play or pause state
+    state = models.CharField(max_length=8, null = True)
+    # What  time in history the state changes
+    action_time = models.DateTimeField(null = True)
+    # the  timestamp when the state changes
+    timestamp = models.FloatField(null = True)
 
     def emit(self, event, data):  # type: (str, dict)
         data['event'] = event
