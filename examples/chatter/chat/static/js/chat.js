@@ -161,9 +161,10 @@ $(document).ready(function () {
         $('#chat-messages').prepend(
             '<li class="list-group-item"><strong>'
             + data['username']
+            + ":"
             + '</strong>&nbsp;'
-            + data['msg'] +
-            '<span class="tag tag-pill tag-success float-right italics">'
+            + data['msg']
+            + '<span class="tag tag-pill tag-success float-right italics">'
             + data['time']
             + '</span></li>');
     });
