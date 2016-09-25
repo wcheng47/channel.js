@@ -8,9 +8,9 @@ html {
 
 body {
     font-family: proxima-nova, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    background-image: url("resources/background1.png");
+    background-image: url("resources/background3.png");
     background-size: cover;
-    color: white;
+    color: black;
     height:100%;
 }
 
@@ -27,8 +27,6 @@ h3 {
 }
 
 .list-group-item {
-    background-color: rgba(0,0,0,0);
-    border: none;
 }
 
 header {
@@ -36,7 +34,6 @@ header {
     height:5em;
     width:auto;
     padding-bottom: 1em;
-    background-color: rgba(0,0,0,.6)
 }
 
 #logo {
@@ -76,6 +73,5 @@ header {
 }
 
 .col-md-4 {
-    background-color: rgba(0,0,0,.3);
     height:100%;
 }
