@@ -83,17 +83,15 @@ def video_end(message, **kwargs):
         room.state = 'play'
         room.save()
 
-        room.emit(
-            event='queue-next',
-            data={
-                'new_video_id': room.youtube_id,
-                'timestamp': room.timestamp,
-                'action_time': room.action_time,
-                'state': room.state
-            }
-        )
-    else:
-        pass  # ignore old requests
+    room.emit(
+        event='queue-next',
+        data={
+            'new_video_id': room.youtube_id,
+            'timestamp': room.timestamp,
+            'action_time': room.action_time,
+            'state': room.state
+        }
+    )
 
 
 def force_update(message, **kwargs):
