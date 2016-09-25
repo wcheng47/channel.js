@@ -1,14 +1,14 @@
-html {
-    height:100%;
+ html {
+    height:90%;
 }
 
 .container-fluid {
-    height: 100%;
+    height: 90%;
 }
 
 body {
     font-family: proxima-nova, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-    background-image: url("resources/background3.png");
+    background-image: url("http://williamhcheng.com/resources/background3.png");
     background-size: cover;
     color: black;
     height:100%;
@@ -37,7 +37,7 @@ header {
 }
 
 #logo {
-    content: url("resources/koalaudioBP.png");
+    content: url("http://williamhcheng.com/resources/koalaudioBP.png");
     height: 100%;
     width: auto;
     margin: auto;
@@ -46,25 +46,32 @@ header {
 #mascot {}
 
 #player {
-    padding-top: 1em;
-    padding-left: 1em;
+    padding: 0em;
     float: left;
-    width: 100%;
+    margin-top: 3%;
+    margin-left: 10%;
+    width: 80%;
+    height: 80%;
+    box-shadow: 0px 8px 35.7px 6.3px rgba(24, 138, 234, 0.6);
 }
 
 .italics {
     font-style: italic;
 }
 
+::-webkit-scrollbar {
+    display:none;
+}
+
 #chat-messages {
     overflow-y: scroll;
-    overflow:hidden;
     height: 60%;
 }
 
 #chat-form {
     width: 70%;
     float: left;
+
 }
 
 #chat-submit {
@@ -72,6 +79,22 @@ header {
     float: right;
 }
 
+.col-md-8 {
+    height:100%;
+}
+
 .col-md-4 {
     height:100%;
+    border:solid 1px;
+    border-color: #939393;
+    padding: 25px;
+    background-color:rgba(147,147,147,.3);
+    border-radius: 5px;
+}
+
+#koala {
+    content: url("koalaMusic.png");
+    height: 100%;
+    width: auto;
+    margin: auto;
 }

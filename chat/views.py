@@ -3,6 +3,10 @@ from django.shortcuts import render
 from .models import Room
 
 
+def index(request):
+    return render(request, 'chat/index.html')
+
+
 def chatroom(request, slug):  # type: (HttpRequest, str) -> HttpResponse
     """
     Handles displaying the chat room page
