@@ -9,10 +9,9 @@
         <div class="row">
             <div class="col-md-8">
                 <div id="player"></div>
-                <form action="">
+                <form action="text/javascript" method="get">
                 <input type="text" id="new-video-id" class="form-control"/>
-                <button type="button" id="submit-video" class="btn btn-outline-success">Submit Video</button>
-
+                <button type="submit" id="submit-video" class="btn btn-outline-success">Submit Video</button>
             </form>
             </div>
 
@@ -46,7 +45,17 @@
 {% block extra_scripts %}
     {% load static from staticfiles %}
     <script type="text/javascript">
+    var vid_id;
+        var submit_video_button = $('#submit-video');
+        submit_video_button.on('click', function () {
+                vid_id = $('#new-video-id').val();
+
+                window.location.replace('/videos/' + vid_id + '/');
+
+                return false;
+            });
         var yt_id = "{{ room.slug }}";// YOUTUBE ///
+        //var yt_id = "{{ vid_id }}";// YOUTUBE ///
 
 
         var channel;

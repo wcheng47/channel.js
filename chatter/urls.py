@@ -22,6 +22,6 @@ from chat.views import index
 
 urlpatterns = [
     url(r'^$', index),
-    url(r'^chat/', include('chat.urls')),
+    url(r'^videos/', include('chat.urls')),
     url(r'^admin/', admin.site.urls)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
